@@ -1,0 +1,367 @@
+{
+  "datasets": [
+    {
+      "name": "3c1f4d9f",
+      "displayName": "sales_transactions",
+      "queryLines": [
+        "SELECT * FROM samples.bakehouse.sales_transactions"
+      ]
+    },
+    {
+      "name": "33a7171c",
+      "displayName": "From Notebook",
+      "queryLines": [
+        "SELECT * FROM samples.bakehouse.sales_transactions"
+      ]
+    },
+    {
+      "name": "35f24aaa",
+      "displayName": "Product_Sales_Desc",
+      "queryLines": [
+        "SELECT product, SUM(totalPrice) \r\n",
+        "FROM samples.bakehouse.sales_transactions\r\n",
+        "GROUP BY product\r\n",
+        "ORDER BY SUM(totalPrice) DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "23493b31",
+      "displayName": "Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "9ed87a30",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "35f24aaa",
+                  "fields": [
+                    {
+                      "name": "sum(sum(totalPrice))",
+                      "expression": "SUM(`sum(totalPrice)`)"
+                    },
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(sum(totalPrice))",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product",
+                  "axis": {
+                    "hideTitle": false
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "sum(sum(totalPrice))",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "greenblue"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Price by Product",
+                "showDescription": true,
+                "description": "Golden Gate Ginger is our highest selling product 8 years in a row."
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "015ec9e9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3c1f4d9f",
+                  "fields": [
+                    {
+                      "name": "count(paymentMethod)",
+                      "expression": "COUNT(`paymentMethod`)"
+                    },
+                    {
+                      "name": "paymentMethod",
+                      "expression": "`paymentMethod`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(paymentMethod)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Payment Method Breakdown"
+                },
+                "color": {
+                  "fieldName": "paymentMethod",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "48e25a3e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3c1f4d9f",
+                  "fields": [
+                    {
+                      "name": "daily(dateTime)",
+                      "expression": "DATE_TRUNC(\"DAY\", `dateTime`)"
+                    },
+                    {
+                      "name": "sum(quantity)",
+                      "expression": "SUM(`quantity`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(dateTime)",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(quantity)",
+                  "displayName": "Quantity Sold",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Quantity of Sales over Time"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 7,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "9f2de35c",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"font-size: 24px;\">**Transaction Dashboard**</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f8acd097",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3c1f4d9f",
+                  "fields": [
+                    {
+                      "name": "sum(totalPrice)",
+                      "expression": "SUM(`totalPrice`)"
+                    },
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(totalPrice)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "sum(totalPrice)",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "greenblue"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 13,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "61186026",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "40c002f7",
+            "queries": [
+              {
+                "name": "dashboards/01f0d42a87f21a8a8f5dbc4bc0a5c0fa/datasets/01f0d42ae0c711e2b116ac2aa1307b5e_quantity",
+                "query": {
+                  "datasetName": "3c1f4d9f",
+                  "fields": [
+                    {
+                      "name": "min(quantity)",
+                      "expression": "MIN(`quantity`)"
+                    },
+                    {
+                      "name": "max(quantity)",
+                      "expression": "MAX(`quantity`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "range-slider",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "quantity",
+                    "queryName": "dashboards/01f0d42a87f21a8a8f5dbc4bc0a5c0fa/datasets/01f0d42ae0c711e2b116ac2aa1307b5e_quantity"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "range": {
+                    "dataType": "INTEGER",
+                    "min": {
+                      "value": "0"
+                    },
+                    "max": {
+                      "value": "100"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
